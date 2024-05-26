@@ -74,7 +74,7 @@ class csr {
         Loop % transformedkey.Length() {
             sum := sum + transformedkey[A_Index]
         }
-        avg := Floor(sum/5)
+        avg := Floor(sum/transformedkey.Length())
 
         ;Modify the transformed key indices based on the average and position
         Loop % transformedkey.Length() {
