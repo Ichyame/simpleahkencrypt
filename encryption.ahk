@@ -1,3 +1,4 @@
+
 class csr {
     ;A static array containing all the characters used for encryption/decryption
     static char := ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z","a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z","1","2","3","4","5","6","7","8","9","0"," ","""","`n",":",".",",","$","%","&"]
@@ -9,9 +10,7 @@ class csr {
         stringit := [] ;Create an array to store the characters of the input string
 
         ;Convert the input string into an array
-        Loop % StrLen(string) {
-            stringit[A_Index] := SubStr(string, A_Index, 1)
-        }
+        stringit := StrSplit(string)
 
         ;Encrypt each character of the input string
         Loop % StrLen(string) { 
@@ -22,7 +21,7 @@ class csr {
                     Break
                 }   
             }
-            output := output stringit[A_Index] ;Append the encrypted character to the output string
+            output .= stringit[A_Index] ;Append the encrypted character to the output string
 
         }
 
@@ -37,10 +36,7 @@ class csr {
         output := ""
         
 
-        stringit := []
-        Loop % StrLen(string) {
-            stringit[A_Index] := SubStr(string, A_Index, 1)
-        }
+        stringit := StrSplit(string)
 
 
         Loop % StrLen(string) {
@@ -52,39 +48,25 @@ class csr {
                     Break
                 }   
             }
-            output := output stringit[A_Index]
+            output .= stringit[A_Index]
         }
         return output
     }
 
     ;Helper function to handle index overflow
-    overflowprotect(target, size) { 
-        
-        Loop {
-            
-            if (target > size) {
-                target := target - size
-            }
-            else {
-                return target
-                Break
-            }
-        }
+    overflowprotect(target, size) {     
+        while (target > size)
+            target -= size
+        return target
     }
 
     ;Helper function to handle index underflow
-    underflowprotect(target, size) { 
-        
-        Loop {
-            if (target < 1) {
-                target := target + size
-            }
-            else {
-                return target
-                Break
-            }
-        }
+    underflowprotect(target, size) {     
+        while (target < 1)
+            target += size
+        return target
     }
+    
     keygen(key){
         transformedkey := []
 
