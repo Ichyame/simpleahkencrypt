@@ -12,13 +12,13 @@ Very basic encryption for Text Files
 examplestring := "This text will be encrypted"
 key := "I am a Key"
 
-encryptedstring := csr.encrypt(examplestring, A_ComputerName) ;encrypt examplestring
+encryptedstring := csr.encrypt(examplestring, key) ;encrypt examplestring
 
 FileAppend, % encryptedstring, * ;this just outputs our encypted string to Console
 ; Console:
-; tCEKXPJaKoDDHDX$Jn.R3MUHGAI
+; S$Ludx3XoGv%Ondf3kZ3bHbrMi2
 
-decryptedstring := csr.decrypt(encryptedstring, A_ComputerName) ;decrypt decryptedstring
+decryptedstring := csr.decrypt(encryptedstring, key) ;decrypt decryptedstring
 
 FileAppend, % decryptedstring, *
 
