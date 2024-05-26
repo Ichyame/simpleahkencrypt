@@ -7,21 +7,20 @@ class csr {
         transformedkey := this.keygen(key) ;Generate the transformed key
         output := "" ;Initialize an empty output string
 
-        stringit := [] ;Create an array to store the characters of the input string
+        stringarr := [] ;Create an array to store the characters of the input string
 
         ;Convert the input string into an array
-        stringit := StrSplit(string)
+        stringarr := StrSplit(string)
 
         ;Encrypt each character of the input string
-        Loop % StrLen(string) { 
-            stringpos := A_Index
+        for index in stringarr {
             Loop % this.char.Length() {
-                If (stringit[stringpos] == this.char[A_Index]) {
-                    stringit[stringpos] := this.char[this.overflowprotect(A_Index + transformedkey[Mod(stringpos,transformedkey.Length())+1],this.char.Length())] 
+                If (stringarr[index] == this.char[A_Index]) {
+                    stringarr[index] := this.char[this.overflowprotect(A_Index + transformedkey[Mod(index,transformedkey.Length())+1],this.char.Length())] 
                     Break
                 }   
             }
-            output .= stringit[A_Index] ;Append the encrypted character to the output string
+            output .= stringarr[A_Index] ;Append the encrypted character to the output string
 
         }
 
@@ -36,19 +35,18 @@ class csr {
         output := ""
         
 
-        stringit := StrSplit(string)
+        stringarr := StrSplit(string)
 
 
-        Loop % StrLen(string) {
-            stringpos := A_Index
+        for index in stringarr {
             Loop % this.char.Length() {
-                If (stringit[stringpos] == this.char[A_Index]) {
+                If (stringarr[index] == this.char[A_Index]) {
         
-                    stringit[stringpos] := this.char[this.underflowprotect(A_Index - transformedkey[Mod(stringpos,transformedkey.Length())+1],this.char.Length())]
+                    stringarr[index] := this.char[this.underflowprotect(A_Index - transformedkey[Mod(index,transformedkey.Length())+1],this.char.Length())]
                     Break
                 }   
             }
-            output .= stringit[A_Index]
+            output .= stringarr[A_Index]
         }
         return output
     }
@@ -66,7 +64,7 @@ class csr {
             target += size
         return target
     }
-    
+
     keygen(key){
         transformedkey := []
 
