@@ -6,11 +6,7 @@ class csr {
         StringCaseSense, On ;Make the string operations case-sensitive
         transformedkey := this.keygen(key) ;Generate the transformed key
         output := "" ;Initialize an empty output string
-
-        stringarr := [] ;Create an array to store the characters of the input string
-
-        ;Convert the input string into an array
-        stringarr := StrSplit(string)
+        stringarr := StrSplit(string) ;Convert the input string into an array
 
         ;Encrypt each character of the input string
         for index in stringarr {
@@ -23,8 +19,6 @@ class csr {
             output .= stringarr[A_Index] ;Append the encrypted character to the output string
 
         }
-
-
     return output ;Return the encrypted string
     }
 
@@ -33,15 +27,11 @@ class csr {
         StringCaseSense, On
         transformedkey := this.keygen(key)
         output := ""
-        
-
         stringarr := StrSplit(string)
-
 
         for index in stringarr {
             Loop % this.char.Length() {
-                If (stringarr[index] == this.char[A_Index]) {
-        
+                If (stringarr[index] == this.char[A_Index]) {        
                     stringarr[index] := this.char[this.underflowprotect(A_Index - transformedkey[Mod(index,transformedkey.Length())+1],this.char.Length())]
                     Break
                 }   
@@ -90,9 +80,6 @@ class csr {
         Loop % transformedkey.Length() {
             transformedkey[A_Index] := this.overflowprotect(avg + transformedkey[A_Index] + A_Index, this.char.Length())
         }
-
-
-        
         return transformedkey
     }
 }
