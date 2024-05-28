@@ -64,7 +64,7 @@ class csr {
             keypos := A_Index
             Loop % this.char.Length() {
                 If (keyit == this.char[A_Index]) {
-                    transformedkey[keypos] := A_Index 
+                    transformedkey.Push(A_Index) 
                     Break
                 }   
             }    
